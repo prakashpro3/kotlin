@@ -41,3 +41,116 @@ fun filterUniqueDataFromList(){
     val distinctByKey = data.distinctBy {it?.name}
     println("Output: $distinctByKey") // Output: [User(id=1, name=Alice), User(id=2, name=Bob)]
 }
+
+fun mergeMultipleList(){
+    // merge multiple lists
+    val nestedList = listOf(listOf(1, 2, 3), listOf(4, 5))
+    val result = nestedList.flatten()
+    println("Output: $result") // Output: [1, 2, 3, 4, 5]
+}
+
+fun mergeMultipleListWithObject() {
+    data class Book(val title: String, val authors: List<String>)
+    val book1 = Book("Book 1", listOf("Author A", "Author B"))
+    val book2 = Book("Book 2", listOf("Author C"))
+    val book3 = Book("Book 3", listOf("Author B", "Author D"))
+
+    val books = listOf(book1, book2, book3)
+    val authors = books.flatMap { it.authors }
+    
+    println("Output: $authors") // Output: [Author A, Author B, Author C, Author B, Author D]
+}
+
+fun zipMultipleList(){
+    // merge multiple lists
+    val names = listOf("Alice", "Bob")
+    val ages = listOf(25, 30)
+    val result = names.zip(ages)
+    
+    println("Output: $result") // Output: [(Alice, 25), (Bob, 30)]
+}
+
+fun saperateList(){
+    // Separate elements based on a condition.
+    val numbers = listOf(1, 2, 3, 4, 5)
+    val (even, odd) = numbers.partition { it % 2 == 0}
+    
+    println("Output-even: $even") // Output-even: [2, 4]
+    println("Output-odd: $odd")   // Output-odd: [1, 3, 5]
+}
+
+fun separatePeopleByAge() {
+    data class Person(val name: String, val age: Int)
+    val people = listOf(
+        Person("Alice", 25),
+        Person("Bob", 30),
+        Person("Charlie", 17),
+        Person("Diana", 15)
+    )
+
+    val (adults, minors) = people.partition { it.age >= 18 }
+    
+    println("Adults: $adults")   // Output: [Person(name=Alice, age=25), Person(name=Bob, age=30)]
+    println("Minors: $minors")   // Output: [Person(name=Charlie, age=17), Person(name=Diana, age=15)]
+}
+
+fun chunksList(){
+    // Split a list into smaller batches.
+    val numbers = (1..10).toList() // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    val result = numbers.chunked(3)
+    println("Output: $result") // Output: [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+    val windowed = numbers.windowed(3, 1)
+    println("Output: $windowed") // Output: [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10]]
+}
+
+fun calculateSumsOfList(){
+    // Calculate sums.
+    val numbers = listOf(1, 2, 3, 4)
+    val result = numbers.sum()
+    println("Output: $result") // Output: 10
+}
+
+fun calculateSumsList(){
+    // Calculate sums.
+    val numbers = listOf(1, 2, 3, 4)
+    val result = numbers.fold(0) {acc, num -> acc + num}
+    println("Output: $result") // Output: 10
+    val result2 = numbers.fold(3) {acc, num -> acc + num}
+    println("Output: $result2") // Output: 13
+
+    val words = listOf("Kotlin", "is", "awesome")
+    val sentence = words.fold("") { acc, word -> acc + " " + word }
+    println(sentence.trim())  // Output: Kotlin is awesome
+
+    val numbers = listOf(1, 2, 3, 4)
+    val product = numbers.fold(1) { acc, num -> acc * num }
+    println(product)  // Output: 24
+
+    val keyValueList = listOf(Pair("a", 1), Pair("b", 2), Pair("c", 3))
+    val map = keyValueList.fold(mutableMapOf<String, Int>()) { acc, pair ->
+        acc[pair.first] = pair.second
+        acc
+    }
+    println(map)  // Output: {a=1, b=2, c=3}
+}
+
+fun calculateSumUsingReduce() {
+    val numbers = listOf(1, 2, 3, 4)
+    val result = numbers.reduce { acc, num -> acc + num }
+    println("Sum using reduce: $result")  // Output: 10
+}
+
+fun findMaxNumber() {
+    // finds the largest element in the list or collection.
+    val numbers = listOf(1, 2, 3, 4, 5)
+    val max = numbers.reduce { acc, num -> if (acc > num) acc else num }
+    println("Max value using reduce: $max")  // Output: 5
+    
+    val max2 = numbers.maxOrNull()
+    println("Max value using reduce: $max2")  // Output: 5
+    
+    data class Person(val name: String, val age: Int)
+    val people = listOf(Person("Alice", 25), Person("Bob", 30), Person("Charlie", 28))
+    val oldestPerson = people.maxByOrNull { it.age }
+    println("Oldest person: $oldestPerson")  // Output: Oldest person: Person(name=Bob, age=30)
+}
