@@ -31,3 +31,13 @@ fun groupItemBykeyFromList(){
     val filesGrouped = files.groupBy { it.substringAfterLast('.') }
     println("Output: $filesGrouped") // Output: {txt=[doc.txt, notes.txt], png=[image.png, diagram.png], csv=[data.csv]}
 }
+
+fun filterUniqueDataFromList(){
+    // filter unique/distinct items from the list
+    data class User(val id: Int, val name: String)
+    val data = listOf(User(1, "Alice"), User(1, "Alice"), User(2, "Bob"), User(3, "Alice"))
+    val result = data.distinct()
+    println("Output: $result") // Output: [User(id=1, name=Alice), User(id=2, name=Bob), User(id=3, name=Alice)]
+    val distinctByKey = data.distinctBy {it?.name}
+    println("Output: $distinctByKey") // Output: [User(id=1, name=Alice), User(id=2, name=Bob)]
+}
