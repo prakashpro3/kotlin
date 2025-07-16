@@ -154,3 +154,31 @@ fun findMaxNumber() {
     val oldestPerson = people.maxByOrNull { it.age }
     println("Oldest person: $oldestPerson")  // Output: Oldest person: Person(name=Bob, age=30)
 }
+
+fun lamdaExpressionAlternateInterface() {
+    lamdaExpressionToOvercomeInterface(
+        onSuccess = {it -> println("Message: $it")},
+        onFailure = {it -> println("Message: $it")}
+    )
+}
+
+fun lamdaExpressionToOvercomeInterface(onSuccess:(String) -> Unit, onFailure:(String) -> Unit) {
+    onSuccess("Hi")
+    onFailure("Errororo")
+}
+
+fun takeIfUnless(){
+    val age = 19
+    val result1 = age.takeIf {it > 18}?.let{ 
+        println("TakeIf: $it") // age=21 this will print
+        "user is able to vote"
+    } // output: age=21 - user is able to vote Or null
+    
+    val result2 = age.takeUnless {it > 18}?.let{ 
+        println("takUnless: $it") // age=18 this will print
+        "user is not able to vote"
+    } // output: age=18 - user is not able to vote Or null
+    
+    println("result1: $result1")
+    println("result2: $result2")
+}
